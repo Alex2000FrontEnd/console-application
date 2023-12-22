@@ -46,3 +46,5 @@ personalMovieDB.movies[a] = b;
 personalMovieDB.movies[c] = d;
 
 console.log(personalMovieDB);
+
+//когда мы записываем какие-то свойства в объект (ключи) - то лучше использовать квадратные скобки чтобы избежать ошибок
