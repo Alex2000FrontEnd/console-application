@@ -1,7 +1,18 @@
 
 'use strict';
 
-let numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+let numberOfFilms;
+
+function start() {
+    numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?', '');
+
+    //это один из редких случаев когда можно применить цикл while и он будет отлично отрабатывать
+    while (numberOfFilms == '' || numberOfFilms === null || isNaN(numberOfFilms)) {
+        numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?', '');
+    }
+}
+
+start();
 
 const personalMovieDB = {
     count: numberOfFilms,
@@ -11,60 +22,33 @@ const personalMovieDB = {
     privat: false
 };
 
-if (personalMovieDB.count < 10) {
-    alert('Просмотрено довольно мало фильмов');
-} else if (personalMovieDB.count <= 30) {
-    alert('Вы классический зритель');
-} else {
-    alert('Вы киноман');
-}
-
-//через цикл for
-for (let i = 0; i < 2; i++) {
-    const a = prompt('Один из последних просмотренных фильмов?', ''),
-          b = prompt('На сколько оцените его?', '');
-
-    (a === '' || a === null || a.length > 50 || b === '' || b === null || b.length > 50) ? i-- : personalMovieDB.movies[a] = b;
-}
-
-//через цикл while
-/* let i = 0;
-
-while (i < 2) {
-    const a = prompt('Один из последних просмотренных фильмов?', ''),
-          b = prompt('На сколько оцените его?', '');
-
-    if (a === '' || a === null || a.length > 50 || b === '' || b === null || b.length > 50) {
-        i--;
+function detectPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        alert('Просмотрено довольно мало фильмов');
+    } else if (personalMovieDB.count <= 30) {
+        alert('Вы классический зритель');
     } else {
-        personalMovieDB.movies[a] = b;
+        alert('Вы киноман');
     }
-
-    i++;
-} */
-
-//через цикл do
-/* let i = 0;
-
-do {
-    const a = prompt('Один из последних просмотренных фильмов?', ''),
-          b = prompt('На сколько оцените его?', '');
-
-    if (a === '' || a === null || a.length > 50 || b === '' || b === null || b.length > 50) {
-        i--;
-    } else {
-        personalMovieDB.movies[a] = b;
-    }
-
-    i++;
 }
-while (i < 2); */
+
+detectPersonalLevel();
+
+//функция оболочка, которая будет вызывать цикл по требованию
+function rememberMyFilms() {
+    for (let i = 0; i < 2; i++) {
+        const a = prompt('Один из последних просмотренных фильмов?', ''),
+              b = prompt('На сколько оцените его?', '');
+    
+        (a === '' || a === null || a.length > 50 || b === '' || b === null || b.length > 50) ? i-- : personalMovieDB.movies[a] = b;
+    }
+}
+
+rememberMyFilms();
 
 console.log(personalMovieDB);
 
-//цикл for используется в 95% случаев
-//при написании выражений в условиях задействуется 'алгебра логики'
-//чтобы ты запомнил определенные возможности языка, даже те которые редко используются в практике тебе нужно оттачить эти навыки и хоть раз их применить
-
-//унарный плюс преобразует пустую строку или строку с пробелами в 0
-console.log(+'');
+//мы приводим наше приложение в более функциональный вид
+//если ты хочешь проверять на этапе ввода то что ввел пользователь - то тебе нужно использовать регулярные выражения
+//isNaN() - провяряет на нечисло, возврощает true
+//мы создали функции оболочки которые вызываются тогда когда нам это нужно - в будущем мы эти функции сможем подвязать под определенные действия пользователя (например, по клику будет вызываться определенная функция)
