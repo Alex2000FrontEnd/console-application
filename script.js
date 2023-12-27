@@ -46,7 +46,20 @@ function rememberMyFilms() {
 
 rememberMyFilms();
 
-console.log(personalMovieDB);
+function writeYourGenres() {
+    for (let i = 0; i < 3; i++) {
+        personalMovieDB.genres[i] = prompt(`Ваш любимый жанр под номером ${i + 1}`, '');
+    }
+}
+
+writeYourGenres();
+
+function showMyDB(privat) {
+    if (!privat) console.log(personalMovieDB);
+}
+
+showMyDB(personalMovieDB.privat);
+
 
 //мы приводим наше приложение в более функциональный вид
 //если ты хочешь проверять на этапе ввода то что ввел пользователь - то тебе нужно использовать регулярные выражения
